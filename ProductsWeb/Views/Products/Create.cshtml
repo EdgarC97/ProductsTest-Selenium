@@ -1,39 +1,78 @@
 ﻿@model ProductsWeb.Models.Product
+@*
+    This view is used to create a new product.
+    It binds to the Product model and uses tag helpers to generate form elements.
+*@
 
 <h1>Create Product</h1>
 
 <form asp-action="Create" id="createForm">
+    @*
+    Form group for the product's name.
+    The label, input, and validation message are all bound to the "Name" property of the Product model.
+    *@
     <div class="form-group">
+        <!-- Label for the product name field using ASP.NET Core Tag Helper -->
         <label asp-for="Name">Name</label>
+        <!-- Input field for product name with a CSS class for styling -->
         <input asp-for="Name" class="form-control" id="productName" />
+        <!-- Validation message placeholder for product name errors -->
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
+    @*
+    Form group for the product's description.
+    Includes a label, a textarea for input, and a validation message.
+    *@
     <div class="form-group">
+        <!-- Label for the product description field -->
         <label asp-for="Description">Description</label>
+        <!-- Textarea bound to the "Description" property -->
         <textarea asp-for="Description" class="form-control" id="productDescription"></textarea>
+        <!-- Validation message placeholder for product description errors -->
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
+    @*
+    Form group for the product's price.
+    The input is of type "number" with a step value to allow decimal inputs.
+    *@
     <div class="form-group">
+        <!-- Label for the product price field -->
         <label asp-for="Price">Price</label>
+        <!-- Input field for product price with attributes for number input and decimal step -->
         <input asp-for="Price" class="form-control" id="productPrice" type="number" step="0.01" />
+        <!-- Validation message placeholder for product price errors -->
         <span asp-validation-for="Price" class="text-danger"></span>
     </div>
 
+    @*
+    Form group for the product's stock quantity.
+    Consists of a label, number input, and a validation message.
+    *@
     <div class="form-group">
+        <!-- Label for the product stock field -->
         <label asp-for="Stock">Stock</label>
+        <!-- Input field for product stock, using type "number" -->
         <input asp-for="Stock" class="form-control" id="productStock" type="number" />
+        <!-- Validation message placeholder for product stock errors -->
         <span asp-validation-for="Stock" class="text-danger"></span>
     </div>
 
+    @*
+    Submit button to post the form data and create the product.
+    Also includes a link to navigate back to the product list.
+    *@
     <button type="submit" class="btn btn-primary" id="submitButton">Create</button>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </form>
 
+@*
+    Section for including client-side validation scripts.
+    This partial view includes the necessary JavaScript for handling validation on the client side.
+*@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
-
