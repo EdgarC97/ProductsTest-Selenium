@@ -1,27 +1,37 @@
 
 # Products Management System
 
-A simple product management system built with .NET 8, consisting of a REST API and a web interface. The project includes Selenium tests for end-to-end testing.
+A simple product management system built with .NET 8. It consists of a REST API, a web interface, and Selenium tests for end-to-end testing.
+
+---
 
 ## Project Structure
 
+```
+ProductsTest-Selenium/
+├── ProductsAPI/           # REST API project
+│   ├── Controllers/       # API endpoints
+│   ├── Models/            # Data models
+│   ├── Dockerfile         # API containerization
+│   
+│
+├── ProductsWeb/           # Web interface project
+│   ├── Controllers/       # MVC controllers
+│   ├── Models/            # View models
+│   ├── Views/             # Razor views
+│   ├── Dockerfile         # Web app containerization
+│   ├── appsettings.Production.json  # Production configuration (uses Docker service names)
+│   
+│
+├── ProductsWeb.Tests/     # Selenium test project
+│   ├── Pages/             # Page Object Models
+│   ├── Tests/             # Test cases
+│   
+│
+└── docker-compose.yml     # Docker Compose configuration for the entire system
+```
 
-ProductsAPI/           # REST API project
-├── Controllers/       # API endpoints
-├── Models/           # Data models
-└── Dockerfile        # API containerization
-
-ProductsWeb/          # Web interface project
-├── Controllers/      # MVC controllers
-├── Models/          # View models
-├── Views/           # Razor views
-└── Dockerfile       # Web app containerization
-
-ProductsWeb.Tests/    # Selenium test project
-├── Pages/           # Page Object Models
-└── Tests/           # Test cases
-
-```plaintext
+---
 
 ## Technologies Used
 
@@ -32,6 +42,8 @@ ProductsWeb.Tests/    # Selenium test project
 - Docker
 - NUnit
 
+---
+
 ## Prerequisites
 
 - .NET SDK 8.0
@@ -39,151 +51,154 @@ ProductsWeb.Tests/    # Selenium test project
 - Visual Studio 2022 or VS Code
 - Chrome Browser (for Selenium tests)
 
+---
+
 ## Getting Started
 
 ### Local Development
 
-1. Clone the repository:
-```bash
-git clone https://github.com/EdgarC97/ProductsTest-Selenium
-cd ProductsTest-Selenium
-```
+1. **Clone the Repository:**
 
-2. Restore dependencies:
+   ```bash
+   git clone https://github.com/EdgarC97/ProductsTest-Selenium
+   cd ProductsTest-Selenium
+   ```
 
+2. **Restore Dependencies:**
 
-```shellscript
-dotnet restore
-```
+   ```bash
+   dotnet restore
+   ```
 
-3. Build the solution:
+3. **Build the Solution:**
 
+   ```bash
+   dotnet build
+   ```
 
-```shellscript
-dotnet build
-```
+4. **Run the Projects:**
 
-4. Run the projects:
-
-
-```shellscript
-# Run API (from ProductsAPI directory)
-dotnet run --project ProductsAPI
-
-# Run Web App (from ProductsWeb directory)
-dotnet run --project ProductsWeb
-```
+   - For the API (from the `ProductsAPI` directory):
+     ```bash
+     dotnet run --project ProductsAPI
+     ```
+   - For the Web App (from the `ProductsWeb` directory):
+     ```bash
+     dotnet run --project ProductsWeb
+     ```
 
 ### Using Docker
 
-1. Build and run using Docker Compose:
+You can run the entire system using Docker Compose. The `docker-compose.yml` file is included in the project and defines two services—one for the API and one for the Web app. To build and run the containers, simply execute:
 
-
-```shellscript
+```bash
 docker-compose up --build
 ```
 
-The services will be available at:
+After the containers are running, access the services at:
 
-- API: [http://localhost:7001](http://localhost:7001)
-- Web Interface: [http://localhost:7002](http://localhost:7002)
+- **API:** [http://localhost:7001](http://localhost:7001)
+- **Web Interface:** [http://localhost:7002](http://localhost:7002)
 
+*Note:* In production, ensure that your configuration (e.g., in `appsettings.Production.json`) uses Docker service names (e.g., `http://api/api/products`) instead of `localhost` for internal communication between containers.
 
 ### Running Tests
 
-1. Make sure both the API and Web application are running
-2. Execute the tests:
+1. Ensure both the API and the Web App are running.
+2. Run the tests from the test project:
 
+   ```bash
+   dotnet test ProductsWeb.Tests
+   ```
 
-```shellscript
-dotnet test ProductsWeb.Tests
-```
+---
 
 ## API Endpoints
 
 ### Products
 
-- `GET /api/products` - Get all products
-- `GET /api/products/{id}` - Get a specific product
-- `POST /api/products` - Create a new product
-- `PUT /api/products/{id}` - Update a product
-- `DELETE /api/products/{id}` - Delete a product
+- **GET** `/api/products` – Retrieve all products.
+- **GET** `/api/products/{id}` – Retrieve a specific product.
+- **POST** `/api/products` – Create a new product.
+- **PUT** `/api/products/{id}` – Update a product.
+- **DELETE** `/api/products/{id}` – Delete a product.
 
+---
 
 ## Web Interface Features
 
-- View all products
-- Create new products
-- Edit existing products
-- Delete products
+- View all products.
+- Create new products.
+- Edit existing products.
+- Delete products.
 
+---
 
 ## Testing
 
 The project includes Selenium tests that verify:
 
-- Product listing functionality
-- Product creation process
+- Product listing functionality.
+- Product creation process.
 
+---
 
 ## Development Guidelines
 
-1. **Code Style**
+### Code Style
 
-1. Follow C# coding conventions
-2. Use meaningful names for classes and methods
-3. Add comments for complex logic
+- Follow C# coding conventions.
+- Use meaningful names for classes and methods.
+- Add comments for complex logic.
 
+### Testing
 
-2. **Testing**
+- Write tests for new features.
+- Maintain existing tests.
+- Use the Page Object Model pattern for new pages.
 
-1. Write tests for new features
-2. Maintain existing tests
-3. Use Page Object Model pattern for new pages
+### Git Workflow
 
+- Create feature branches.
+- Write descriptive commit messages.
+- Submit pull requests for review.
 
-3. **Git Workflow**
-
-1. Create feature branches
-2. Write meaningful commit messages
-3. Submit pull requests for review
-
+---
 
 ## Troubleshooting
 
-1. **Docker Issues**
+### Docker Issues
 
-1. Ensure Docker Desktop is running
-2. Check port conflicts
-3. Verify network connectivity between containers
+- Ensure Docker Desktop is running.
+- Check for port conflicts.
+- Verify network connectivity between containers.
 
-  
-Si necesitas detener los contenedores:
+To stop the containers, run:
 
-```shellscript
+```bash
 docker-compose down
 ```
 
+### Test Failures
 
-2. **Test Failures**
+- Verify that both the API and Web App are running.
+- Check the Chrome WebDriver version.
+- Review test logs for details.
 
-1. Verify both API and Web app are running
-2. Check Chrome WebDriver version
-3. Review test logs for details
+### Build Errors
 
+- Clean the solution.
+- Restore NuGet packages.
+- Rebuild the solution.
 
-3. **Build Errors**
-
-1. Clear solution
-2. Restore NuGet packages
-3. Rebuild solution
-
+---
 
 ## Contributing
 
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+1. **Fork** the repository.
+2. Create your **feature branch**.
+3. Commit your changes.
+4. Push your changes to your branch.
+5. Open a **Pull Request** for review.
 
+---
