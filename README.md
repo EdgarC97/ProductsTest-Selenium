@@ -1,6 +1,3 @@
-Below is an updated version of your README in English with the project structure revised to include the Docker Compose file, without duplicating its code:
-
----
 
 # Products Management System
 
