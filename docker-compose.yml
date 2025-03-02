@@ -1,0 +1,23 @@
+services:
+  api:
+    build:
+      context: ./ProductsAPI
+      dockerfile: Dockerfile
+    ports:
+      - "7001:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+
+  web:
+    build:
+      context: ./ProductsWeb
+      dockerfile: Dockerfile
+    ports:
+      - "7002:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+      - API_URL=http://api:80
+    depends_on:
+      - api

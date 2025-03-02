@@ -4,17 +4,20 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace ProductsWeb.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiBaseUrl = "http://localhost:5141/api/products"; 
+        private readonly string? _apiBaseUrl;
 
-        public ProductsController()
+        // Inyectamos IConfiguration en el constructor
+        public ProductsController(IConfiguration configuration)
         {
             _httpClient = new HttpClient();
+            _apiBaseUrl = configuration["ApiSettings:BaseUrl"];
         }
 
         public async Task<IActionResult> Index()
